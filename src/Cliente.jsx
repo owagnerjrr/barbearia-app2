@@ -60,7 +60,10 @@ const confirmarAgendamento = async () => {
 
   ;
 
-  
+  const desabilitarDias = (date) => {  
+    const dia = new Date(date).getDay();
+    return dia === 0 || dia === 1;
+  };
 
   return (
     <div style={{
