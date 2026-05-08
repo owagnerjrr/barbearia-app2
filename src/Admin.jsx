@@ -7,15 +7,14 @@ function Admin() {
 
   const buscarAgendamentos = async () => {
     const querySnapshot = await getDocs(collection(db, "agendamentos"));
-    const lista = [];
 
-    querySnapshot.forEach((docItem) => {
-      lista.push({ id: docItem.id, ...docItem.data() });
-      const agora = new Date();
+const lista = [];
 
-const listaFiltrada = lista.filter((a) => {
-  const dataHora = new Date(a.data + " " + a.horario);
-  return dataHora >= agora;
+querySnapshot.forEach((docItem) => {
+  lista.push({
+    id: docItem.id,
+    ...docItem.data()
+  });
 });
 
 // 🔥 FILTRA PASSADOS
@@ -45,9 +44,8 @@ listaFiltrada.forEach((item) => {
 
 // 🔥 FINAL
 setAgendamentos(agrupados);
-
     
-    })
+    };
 
   const formatarDataBr = (data) => {
     const [ano, mes, dia] = data.split("-");
@@ -142,4 +140,4 @@ setAgendamentos(agrupados);
   );
 }
 
-export default Admin}
+export default Admin;
