@@ -189,6 +189,8 @@ const confirmarAgendamento = async () => {
         cursor: ocupado ? "not-allowed" : "pointer",
         fontWeight: "bold",
       }}
+
+      // teste git
     >
       {h} {ocupado ? "❌" : ""}
     </button>
