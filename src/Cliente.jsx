@@ -147,6 +147,7 @@ const confirmarAgendamento = async () => {
   onChange={async (e) => {
     const data = e.target.value;
 
+console.log(new Date(data).getDay());
     const hoje = new Date().toISOString().split("T")[0];
 
     // 🔥 BLOQUEIA DOMINGO E SEGUNDA
