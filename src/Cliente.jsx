@@ -8,6 +8,7 @@ function Cliente() {
   const [dataSelecionada, setDataSelecionada] = useState("");
   const [nome, setNome] = useState("");
   const [telefone, setTelefone] = useState("");
+  const [horariosOcupados, setHorariosOcupados] = useState([]);
 
   const buscarHorariosOcupados = async (data) => {
   console.log("🔥 BUSCANDO HORÁRIOS PRA:", data);
@@ -172,7 +173,7 @@ const confirmarAgendamento = async () => {
               marginTop: "20px"
             }}>
               {horarios.map((h) => {
-  const ocupado = horariosOcupados.includes(h);
+  const ocupado = (horariosOcupados || []).includes(h)
 
   return (
     <button
