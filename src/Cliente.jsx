@@ -3,7 +3,7 @@ import { db } from "./firebase";
 import { collection, addDoc, getDocs } from "firebase/firestore";
 
 function Cliente() {
-  const [tela, setTela] = useState("home");
+  const [tela, setTela] = useState("home"); 
   const [horarioSelecionado, setHorarioSelecionado] = useState("");
   const [dataSelecionada, setDataSelecionada] = useState("");
   const [nome, setNome] = useState("");
@@ -18,149 +18,343 @@ function Cliente() {
   ];
 
   const buscarHorariosOcupados = async (data) => {
-    const querySnapshot = await getDocs(collection(db, "agendamentos"));
+  console.log("🔥 BUSCANDO HORÁRIOS PRA:", data);
 
-    const ocupados = [];
+  const querySnapshot = await getDocs(collection(db, "agendamentos"));
 
-    querySnapshot.forEach((docItem) => {
-      const agendamento = docItem.data();
+  const ocupados = [];
 
-      if (agendamento.data === data) {
-        ocupados.push(agendamento.horario);
-      }
+  querySnapshot.forEach((docItem) => {
+  const agendamento = docItem.data();
+
+    if (agendamento.data === data) {
+      ocupados.push(agendamento.horario);
+    }
+  });
+
+  console.log("✅ OCUPADOS:", ocupados);
+
+  setHorariosOcupados(ocupados);
+};
+
+
+const confirmarAgendamento = async () => {
+  console.log("🔥 clicou no botão");
+
+  try {
+    await addDoc(collection(db, "agendamentos"), {
+      nome: nome,
+      telefone: telefone,
+      data: dataSelecionada,
+      horario: horarioSelecionado
     });
 
-    setHorariosOcupados(ocupados);
-  };
+    console.log("✅ SALVOU NO FIREBASE");
 
-  const confirmarAgendamento = async () => {
-    try {
-      await addDoc(collection(db, "agendamentos"), {
-        nome,
-        telefone,
-        data: dataSelecionada,
-        horario: horarioSelecionado
-      });
+    alert("Agendado com sucesso!");
 
-      alert("Agendado com sucesso!");
-      setTela("home");
+  } catch (error) {
+    console.error("❌ ERRO AO SALVAR:", error);
+  }
+};
 
-    } catch (error) {
-      console.error("Erro ao salvar:", error);
-    }
+  ;
+
+  const desabilitarDias = (date) => {
+    const dia = new Date(date).getDay();
+    return dia === 0 || dia === 1;
   };
 
   return (
-    <div style={{ textAlign: "center", marginTop: "50px" }}>
+    <div style={{
+      width: "100%",
+      minHeight: "100vh",
+      margin: "0",
+      padding: "0",
+      backgroundImage: "url('/fundo.png?v=1')",
+      backgroundSize: "cover",
+      backgroundPosition: "center",
+      backgroundRepeat: "no-repeat",
+      display: "flex",
+      justifyContent: "center",
+      alignItems: "center",
+      color: "white"
+    }}>
+      <div style={{
+        width: "100%",
+        maxWidth: "900px",
+        padding: "40px 20px 60px",
+        display: "flex",
+        flexDirection: "column",
+        alignItems: "center"
+      }}>
+{tela === "home" && (
+  <div
+    style={{
+      width: "100%",
+      maxWidth: "520px",
+      textAlign: "center",
+      marginTop: "-320px",
+    }}
+  >
+    <h1
+      style={{
+        margin: "0 0 20px",
+        fontSize: "2.4rem",
+        color: "#fff",
+        textShadow: "1px 1px 8px rgba(0,0,0,0.4)",
+      }}
+    >
+      Agende já seu horário
+    </h1>
 
-      {tela === "home" && (
-        <>
-          <h1>Agende seu horário</h1>
-          <button onClick={() => setTela("data")}>
-            Agendar
-          </button>
-        </>
-      )}
+    <button
+      onClick={() => setTela("data")}
+      style={{
+        marginTop: "10px",
+        padding: "14px 32px",
+        background: "red",
+        color: "#fff",
+        border: "none",
+        borderRadius: "15px",
+        cursor: "pointer",
+        fontSize: "0.95rem",
+        minWidth: "200px",
+      }}
+    >
+      Agenda
+    </button>
+  </div>
+)}
 
-      {tela === "data" && (
-        <>
-          <h2>Escolha uma data</h2>
+{tela === "data" && (
+  <div
+    style={{
+      textAlign: "center",
+      marginTop: "-320px",
+      background: "rgba(0,0,0,0.45)",
+      backdropFilter: "blur(8px)",
+      padding: "30px 25px",
+      borderRadius: "15px",
+      maxWidth: "520px",
+    }}
+  >
+    <h2 style={{ color: "#fff" }}>Escolha uma data</h2>
+        
+           <input
+  type="date"
+  onChange={async (e) => {
+    const data = e.target.value;
 
-          <input
-            type="date"
-            onChange={async (e) => {
-              const data = e.target.value;
-              setDataSelecionada(data);
-              await buscarHorariosOcupados(data);
-              setTela("agenda");
-            }}
-          />
-        </>
-      )}
+    const hoje = new Date().toISOString().split("T")[0];
 
-      {tela === "agenda" && (
-        <>
-          <h2>Escolha um horário</h2>
+    // ❌ BLOQUEIA APENAS DIAS ANTERIORES
+    if (data < hoje) {
+      alert("Essa data já passou ❌");
+      return;
+    }
 
-          <div style={{ display: "flex", flexWrap: "wrap", gap: "10px", justifyContent: "center" }}>
+    if (desabilitarDias(data)) {
+      alert("Não atendemos nesse dia ❌");
+      return;
+    }
 
-            {horarios.map((h) => {
-              const agora = new Date();
-              const dataHoje = new Date().toISOString().split("T")[0];
+    setDataSelecionada(data);
 
-              const horarioPassado =
-                dataSelecionada === dataHoje &&
-                h < agora.toTimeString().slice(0, 5);
+    await buscarHorariosOcupados(data);
 
-              const ocupado =
-                (horariosOcupados || []).includes(h) || horarioPassado;
+    setTela("agenda");
+  }}
+  style={{
+    padding: "10px",
+    borderRadius: "10px",
+    border: "none",
+    marginTop: "20px",
+  }}
+/>
 
-              return (
-                <button
-                  key={h}
-                  disabled={ocupado}
-                  onClick={() => {
-                    if (ocupado) return;
-                    setHorarioSelecionado(h);
-                    setTela("confirmar");
-                  }}
-                  style={{
-                    padding: "10px",
-                    borderRadius: "8px",
-                    border: "none",
-                    background: ocupado ? "#555" : "#fff",
-                    color: ocupado ? "#aaa" : "#000",
-                    cursor: ocupado ? "not-allowed" : "pointer",
-                  }}
-                >
-                  {h} {ocupado ? "❌" : ""}
-                </button>
-              );
-            })}
+            <br />
 
+            <button
+              onClick={() => setTela("home")}
+              style={{
+                marginTop: "20px",
+                padding: "10px 20px",
+                background: "rgba(255,255,255,0.18)",
+                color: "#fff",
+                border: "1px solid rgba(255,255,255,0.35)",
+                borderRadius: "10px",
+                cursor: "pointer",
+              }}
+            >
+              Voltar
+            </button>
           </div>
+)}
 
-          <br />
-          <button onClick={() => setTela("data")}>Voltar</button>
-        </>
-      )}
+        {tela === "agenda" && (
+          <div style={{ textAlign: "center", marginTop: "-320px", background: "rgba(0,0,0,0.45)", backdropFilter: "blur(8px)", padding: "30px 25px", borderRadius: "15px", maxWidth: "520px" }}>
+            <h2 style={{ color: "#fff" }}>Escolha um horário</h2>
 
-      {tela === "confirmar" && (
-        <>
-          <h2>Confirmar horário</h2>
+            <div style={{
+              display: "grid",
+              gridTemplateColumns: "repeat(5, 1fr)",
+              gap: "10px",
+              maxWidth: "500px",
+              marginTop: "20px"
+            }}>
 
-          <p>{dataSelecionada}</p>
-          <p>{horarioSelecionado}</p>
 
-          <input
-            placeholder="Nome"
-            value={nome}
-            onChange={(e) => setNome(e.target.value)}
-          />
+          
+              {horarios.map((h) => {
+                
+  const agora = new Date();
+const dataHoje = new Date().toISOString().split("T")[0];
 
-          <br />
+;
 
-          <input
-            placeholder="Telefone"
-            value={telefone}
-            onChange={(e) => setTelefone(e.target.value)}
-          />
+const horarioPassado =
+  dataSelecionada === dataHoje &&
+  h < agora.toTimeString().slice(0, 5);
 
-          <br />
+const ocupado = (horariosOcupados || []).includes(h) || horarioPassado;
 
-          <button onClick={confirmarAgendamento}>
-            Confirmar
-          </button>
 
-          <br />
-          <button onClick={() => setTela("agenda")}>
-            Voltar
-          </button>
-        </>
-      )}
 
-    </div>
+
+  return (
+    <button
+      key={h}
+      disabled={ocupado}
+      onClick={() => {
+        if (ocupado) return;
+
+        setHorarioSelecionado(h);
+        setTela("confirmar");
+      }}
+      style={{
+        padding: "12px",
+        borderRadius: "10px",
+        border: "none",
+        background: ocupado ? "#555" : "#fff",
+        color: ocupado ? "#aaa" : "#000",
+        cursor: ocupado ? "not-allowed" : "pointer",
+        fontWeight: "bold",
+      }}
+
+      // teste git
+    >
+      {h} {ocupado ? "❌" : ""}
+    </button>
   );
+})}
+
+              
+            </div>
+
+            <button
+              onClick={() => setTela("data")}
+              style={{
+                marginTop: "20px",
+                padding: "10px 20px",
+                background: "rgba(255,255,255,0.18)",
+                color: "#fff",
+                border: "1px solid rgba(255,255,255,0.35)",
+                borderRadius: "10px",
+                cursor: "pointer",
+              }}
+            >
+              Voltar
+            </button>
+          </div>
+        )}
+
+        {tela === "confirmar" && (
+          <div style={{ textAlign: "center", marginTop: "-320px", color: "#fff", background: "rgba(0,0,0,0.45)", backdropFilter: "blur(8px)", padding: "30px 25px", borderRadius: "15px", maxWidth: "520px" }}>
+            <h2>Confirmar horário</h2>
+
+            <p>{dataSelecionada}</p>
+            <p>{horarioSelecionado}</p>
+
+            <input
+              placeholder="Seu nome"
+              value={nome}
+              onChange={(e) => setNome(e.target.value)}
+              style={{
+                padding: "10px",
+                borderRadius: "10px",
+                border: "none",
+                marginTop: "10px",
+                width: "100%",
+                maxWidth: "400px",
+              }}
+            />
+
+            <br />
+
+            <input
+              placeholder="Seu telefone"
+              value={telefone}
+              onChange={(e) => setTelefone(e.target.value)}
+              style={{
+                padding: "10px",
+                borderRadius: "10px",
+                border: "none",
+                marginTop: "10px",
+                width: "100%",
+                maxWidth: "400px",
+              }}
+            />
+
+            <br />
+
+            <button
+              onClick={async () => {
+                if (!nome || !telefone) {
+                  alert("Preencha tudo!");
+                  return;
+                }
+
+                await confirmarAgendamento(); // 🔥 AGORA SALVA NO FIREBASE
+
+                
+                setTela("home");
+              }}
+              style={{
+                marginTop: "20px",
+                padding: "12px 30px",
+                background: "red",
+                color: "#fff",
+                border: "none",
+                borderRadius: "20px",
+                cursor: "pointer",
+              }}
+            >
+              Confirmar
+            </button>
+
+            <br />
+
+            <button
+              onClick={() => setTela("agenda")}
+              style={{
+                marginTop: "10px",
+                padding: "10px 20px",
+                background: "rgba(255,255,255,0.18)",
+                color: "#fff",
+                border: "1px solid rgba(255,255,255,0.35)",
+                borderRadius: "10px",
+                cursor: "pointer",
+              }}
+            >
+              Voltar
+            </button>
+          </div>
+        )}
+      </div>
+      </div>
+    
+      );
 }
 
 export default Cliente;
