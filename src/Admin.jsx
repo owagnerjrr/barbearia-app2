@@ -8,6 +8,7 @@ function Admin() {
   const buscarAgendamentos = async () => {
     const querySnapshot = await getDocs(collection(db, "appointments"));
     const lista = [];
+    const dados = JSON.parse(localStorage.getItem("agendamentos")) || [];
 
     querySnapshot.forEach((docItem) => {
       lista.push({ id: docItem.id, ...docItem.data() });
