@@ -63,7 +63,7 @@ const confirmarAgendamento = async () => {
   const desabilitarDias = (date) => {
     
     const dia = new Date(date).getDay();
-    return dia === 1 || dia === 0;
+    return dia === 0 || dia === 1;
   };
 
   return (
@@ -148,6 +148,12 @@ const confirmarAgendamento = async () => {
     const data = e.target.value;
 
     const hoje = new Date().toISOString().split("T")[0];
+
+    // 🔥 BLOQUEIA DOMINGO E SEGUNDA
+  if (desabilitarDias(data)) {
+    alert("Não atendemos domingo e segunda ❌");
+    return;
+  }
 
     // ❌ BLOQUEIA APENAS DIAS ANTERIORES
     if (data < hoje) {
