@@ -94,7 +94,7 @@ const confirmarAgendamento = async () => {
       width: "100%",
       maxWidth: "520px",
       textAlign: "center",
-      marginTop: "-355px",
+      marginTop: "0px",
     }}
   >
     <h1
