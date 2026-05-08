@@ -202,6 +202,10 @@ const confirmarAgendamento = async () => {
               {horarios.map((h) => {
   const agora = new Date();
 const dataHoje = new Date().toISOString().split("T")[0];
+const horarios = [
+  ["07:00","08:00","09:00","09:40","10:20"],
+  ["11:00","11:40","12:00","12:30","13:00"]
+];
 
 const horarioPassado =
   dataSelecionada === dataHoje &&
