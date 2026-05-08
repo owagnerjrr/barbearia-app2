@@ -60,9 +60,12 @@ const confirmarAgendamento = async () => {
 
   ;
 
-  const desabilitarDias = (date) => {  
-    const dia = new Date(date).getDay();
-    return dia === 0 || dia === 1;
+  const desabilitarDias = (date) => {
+    const [ano, mes, dia] = date.split("-");
+    const dataLocal = new Date(Number(ano), Number(mes) - 1, Number(dia));
+    const diaSemana = dataLocal.getDay();
+
+    return diaSemana === 0 || diaSemana === 1;
   };
 
   return (
