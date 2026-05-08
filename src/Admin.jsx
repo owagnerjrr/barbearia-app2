@@ -108,11 +108,11 @@ function Admin() {
                   style={{
                     display: "flex",
                     flexDirection: "column",
-                    gap: "10px",
+                    gap: "6px",
                     background: "rgba(255,255,255,0.1)",
-                    padding: "18px",
+                    padding: "10px",
                     borderRadius: "16px",
-                    marginBottom: "14px"
+                    marginBottom: "8px"
                   }}
                 >
                   <p style={{ fontWeight: "bold" }}>{a.nome}</p>
