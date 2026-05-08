@@ -232,7 +232,7 @@ const confirmarAgendamento = async () => {
     </button>
   );
 })}
-              ))
+              
             </div>
 
             <button
