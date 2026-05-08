@@ -10,6 +10,8 @@ function Cliente() {
   const [telefone, setTelefone] = useState("");
 
   const buscarHorariosOcupados = async (data) => {
+  console.log("🔥 BUSCANDO HORÁRIOS PRA:", data);
+
   const querySnapshot = await getDocs(collection(db, "agendamentos"));
 
   const ocupados = [];
@@ -21,6 +23,8 @@ function Cliente() {
       ocupados.push(agendamento.horario);
     }
   });
+
+  console.log("✅ OCUPADOS:", ocupados);
 
   setHorariosOcupados(ocupados);
 };
@@ -125,7 +129,7 @@ const confirmarAgendamento = async () => {
 
     setDataSelecionada(data);
 
-    await buscarHorariosOcupados(data);
+     buscarHorariosOcupados(data);
 
     setTela("agenda");
   }}
