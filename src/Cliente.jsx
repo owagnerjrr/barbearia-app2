@@ -124,31 +124,25 @@ const confirmarAgendamento = async () => {
   </div>
 )}
 
- {tela === "data" && (
-          <div style={{ textAlign: "center" }}>
-            <h2>Escolha uma data</h2>
-
-            {/* ✅ ALTERADO */}
-            <input
-              type="date"
-              onChange={(e) => setDataTemp(e.target.value)}
-              style={{ padding: "10px", borderRadius: "10px", marginTop: "20px" }}
-            />
-
-            {/* ✅ NOVO BOTÃO */}
-            <button
-              onClick={async () => {
-                const data = dataTemp;
-
-                if (!data) {
-                  alert("Escolha uma data ❌");
-                  return;
-                }
-
-                const hoje = new Date().toISOString().split("T")[0];
-
-                const [ano, mes, dia] = data.split("-");
-                const diaSemana = new Date(ano, mes - 1, dia).getDay();
+{tela === "data" && (
+  <div
+    style={{
+      textAlign: "center",
+      marginTop: "-320px",
+      background: "rgba(0,0,0,0.45)",
+      backdropFilter: "blur(8px)",
+      padding: "30px 25px",
+      borderRadius: "15px",
+      maxWidth: "520px",
+    }}
+  >
+    <h2 style={{ color: "#fff" }}>Escolha uma data</h2>
+        
+           <input
+  type="date"
+  onChange={async (e) => {
+    const data = e.target.value;
+    const hoje = new Date().toISOString().split("T")[0];
 
     // 🔥 BLOQUEIA DOMINGO E SEGUNDA
     if (desabilitarDias(data)) {
