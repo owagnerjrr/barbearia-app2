@@ -150,26 +150,19 @@ const confirmarAgendamento = async () => {
     const hoje = new Date().toISOString().split("T")[0];
 
     // 🔥 BLOQUEIA DOMINGO E SEGUNDA
-  if (desabilitarDias(data)) {
-    alert("Não atendemos domingo e segunda ❌");
-    return;
-  }
+    if (desabilitarDias(data)) {
+      alert("Não atendemos domingo e segunda ❌");
+      return;
+    }
 
-    // ❌ BLOQUEIA APENAS DIAS ANTERIORES
+    // ❌ BLOQUEIA DATA PASSADA
     if (data < hoje) {
       alert("Essa data já passou ❌");
       return;
     }
 
-    if (desabilitarDias(data)) {
-      alert("Não atendemos nesse dia ❌");
-      return;
-    }
-
     setDataSelecionada(data);
-
     await buscarHorariosOcupados(data);
-
     setTela("agenda");
   }}
   style={{
