@@ -118,21 +118,18 @@ const confirmarAgendamento = async () => {
           <div style={{ textAlign: "center", marginTop: "-320px", background: "rgba(0,0,0,0.45)", backdropFilter: "blur(8px)", padding: "30px 25px", borderRadius: "15px", maxWidth: "520px" }}>
             <h2 style={{ color: "#fff" }}>Escolha uma data</h2>
 
-            <input
+           <input
   type="date"
   onChange={async (e) => {
     const data = e.target.value;
-    const hoje = new Date();
-const dataEscolhida = new Date(data);
 
-// zera horas pra comparar só dia
-hoje.setHours(0, 0, 0, 0);
-dataEscolhida.setHours(0, 0, 0, 0);
+    const hoje = new Date().toISOString().split("T")[0];
 
-if (dataEscolhida < hoje) {
-  alert("Essa data já passou ❌");
-  return;
-}
+    // ❌ BLOQUEIA APENAS DIAS ANTERIORES
+    if (data < hoje) {
+      alert("Essa data já passou ❌");
+      return;
+    }
 
     if (desabilitarDias(data)) {
       alert("Não atendemos nesse dia ❌");
@@ -141,7 +138,6 @@ if (dataEscolhida < hoje) {
 
     setDataSelecionada(data);
 
-    // 🔥 BUSCA HORÁRIOS OCUPADOS
     await buscarHorariosOcupados(data);
 
     setTela("agenda");
