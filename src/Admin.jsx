@@ -11,6 +11,14 @@ function Admin() {
 
     querySnapshot.forEach((docItem) => {
       lista.push({ id: docItem.id, ...docItem.data() });
+      const agora = new Date();
+
+const listaFiltrada = lista.filter((a) => {
+  const dataHora = new Date(a.data + " " + a.horario);
+  return dataHora >= agora;
+});
+
+setAgendamentos(listaFiltrada);
     });
 
     // Ordena cronologicamente
@@ -20,7 +28,7 @@ function Admin() {
       return dateA - dateB;
     });
 
-    setAgendamentos(lista);
+    
   };
 
   const formatarDataBr = (data) => {
