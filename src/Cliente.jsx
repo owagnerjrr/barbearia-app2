@@ -17,8 +17,8 @@ function Cliente() {
 
   const ocupados = [];
 
-  querySnapshot.forEach((doc) => {
-    const agendamento = doc.data(); 
+  querySnapshot.forEach((docItem) => {
+  const agendamento = docItem.data();
 
     if (agendamento.data === data) {
       ocupados.push(agendamento.horario);
@@ -176,7 +176,7 @@ const confirmarAgendamento = async () => {
   const ocupado = (horariosOcupados || []).includes(h);
 
 
-  
+
 
   return (
     <button
