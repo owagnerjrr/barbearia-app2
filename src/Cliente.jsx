@@ -122,7 +122,7 @@ const confirmarAgendamento = async () => {
         minWidth: "200px",
       }}
     >
-      Agenda
+      Agendar
     </button>
   </div>
 )}
