@@ -1,7 +1,6 @@
 ﻿import { useState } from "react";
 import { db } from "./firebase";
-import { collection, addDoc } from "firebase/firestore";
-import { collection, getDocs } from "firebase/firestore";
+import { collection, addDoc, getDocs } from "firebase/firestore";
 
 function Cliente() {
   const [tela, setTela] = useState("home");
