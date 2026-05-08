@@ -86,37 +86,58 @@ const confirmarAgendamento = async () => {
       }}>
 
         {tela === "home" && (
-          <div style={{ width: "100%", maxWidth: "520px", textAlign: "center", marginTop: "-320px" }}>
-            <h1 style={{
-              margin: "0 0 20px",
-              fontSize: "2.4rem",
-              color: "#fff",
-              textShadow: "1px 1px 8px rgba(0,0,0,0.4)"
-            }}>
-              Agende já seu horário
-            </h1>
-            <button
-              onClick={() => setTela("data")}
-              style={{
-                marginTop: "10px",
-                padding: "14px 32px",
-                background: "red",
-                color: "#fff",
-                border: "none",
-                borderRadius: "15px",
-                cursor: "pointer",
-                fontSize: "0.95rem",
-                minWidth: "200px"
-              }}
-            >
-              Agenda
-            </button>
-          </div>
-        )}
+  <div style={{ width: "100%", maxWidth: "520px", textAlign: "center", marginTop: "-320px" }}>
+    
+    <h1 style={{
+      margin: "0 0 20px",
+      fontSize: "2.4rem",
+      color: "#fff",
+      textShadow: "1px 1px 8px rgba(0,0,0,0.4)"
+    }}>
+      Agende já seu horário
+    </h1>
 
-        {tela === "data" && (
-          <div style={{ textAlign: "center", marginTop: "-320px", background: "rgba(0,0,0,0.45)", backdropFilter: "blur(8px)", padding: "30px 25px", borderRadius: "15px", maxWidth: "520px" }}>
-            <h2 style={{ color: "#fff" }}>Escolha uma data</h2>
+    {/* 🔥 NOVAS INFORMAÇÕES */}
+    <p style={{ color: "#ddd", marginBottom: "10px" }}>
+      Seja bem-vindo! Aqui você encontra estilo, qualidade e atendimento de primeira 🔥
+    </p>
+
+    <p style={{ color: "#ccc" }}>
+      👤 Proprietário: Nayan Couto Leopoldo
+    </p>
+
+    <p style={{ color: "#fff", fontWeight: "bold", marginTop: "10px" }}>
+      💈 Corte: R$ 35,00
+    </p>
+
+    <p style={{ color: "#ccc", marginTop: "5px" }}>
+      💳 Pix: 35 9 8831-6108
+    </p>
+
+    <p style={{ color: "#ccc", marginBottom: "15px" }}>
+      📍 Rua Cabo Benedito Alves, 717 (Garagem) - Cotia
+    </p>
+
+    {/* BOTÃO (SEU ORIGINAL) */}
+    <button
+      onClick={() => setTela("data")}
+      style={{
+        marginTop: "10px",
+        padding: "14px 32px",
+        background: "red",
+        color: "#fff",
+        border: "none",
+        borderRadius: "15px",
+        cursor: "pointer",
+        fontSize: "0.95rem",
+        minWidth: "200px"
+      }}
+    >
+      Agenda
+    </button>
+
+  </div>
+)}
 
            <input
   type="date"
@@ -167,7 +188,7 @@ const confirmarAgendamento = async () => {
               Voltar
             </button>
           </div>
-        )}
+        
 
         {tela === "agenda" && (
           <div style={{ textAlign: "center", marginTop: "-320px", background: "rgba(0,0,0,0.45)", backdropFilter: "blur(8px)", padding: "30px 25px", borderRadius: "15px", maxWidth: "520px" }}>
@@ -349,8 +370,8 @@ const ocupado = (horariosOcupados || []).includes(h) || horarioPassado;
           </div>
         )}
       </div>
-    </div>
-  );
+    
+      );
 }
 
 export default Cliente;
