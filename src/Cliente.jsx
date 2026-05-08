@@ -59,10 +59,7 @@ const confirmarAgendamento = async () => {
 };
 
   ;
-const desabilitarDias = (date) => {
-  const dia = new Date(date).getDay();
-  return dia === 0 || dia === 1; // domingo e segunda
-};
+
   const desabilitarDias = (date) => {
     
     const dia = new Date(date).getDay();
