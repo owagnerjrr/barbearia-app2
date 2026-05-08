@@ -122,6 +122,17 @@ const confirmarAgendamento = async () => {
   type="date"
   onChange={async (e) => {
     const data = e.target.value;
+    const hoje = new Date();
+const dataEscolhida = new Date(data);
+
+// zera horas pra comparar só dia
+hoje.setHours(0, 0, 0, 0);
+dataEscolhida.setHours(0, 0, 0, 0);
+
+if (dataEscolhida < hoje) {
+  alert("Essa data já passou ❌");
+  return;
+}
 
     if (desabilitarDias(data)) {
       alert("Não atendemos nesse dia ❌");
@@ -174,7 +185,14 @@ const confirmarAgendamento = async () => {
               marginTop: "20px"
             }}>
               {horarios.map((h) => {
-  const ocupado = (horariosOcupados || []).includes(h);
+  const agora = new Date();
+const dataHoje = new Date().toISOString().split("T")[0];
+
+const horarioPassado =
+  dataSelecionada === dataHoje &&
+  h < agora.toTimeString().slice(0, 5);
+
+const ocupado = (horariosOcupados || []).includes(h) || horarioPassado;
 
 
 
