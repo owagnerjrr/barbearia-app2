@@ -1,6 +1,7 @@
 ﻿import { useState } from "react";
 import { db } from "./firebase";
 import { collection, addDoc } from "firebase/firestore";
+import { collection, getDocs } from "firebase/firestore";
 
 function Cliente() {
   const [tela, setTela] = useState("home");
@@ -8,6 +9,22 @@ function Cliente() {
   const [dataSelecionada, setDataSelecionada] = useState("");
   const [nome, setNome] = useState("");
   const [telefone, setTelefone] = useState("");
+
+  const buscarHorariosOcupados = async (data) => {
+  const querySnapshot = await getDocs(collection(db, "agendamentos"));
+
+  const ocupados = [];
+
+  querySnapshot.forEach((doc) => {
+    const agendamento = doc.data();
+
+    if (agendamento.data === data) {
+      ocupados.push(agendamento.horario);
+    }
+  });
+
+  setHorariosOcupados(ocupados);
+};
 
 
 const confirmarAgendamento = async () => {
@@ -99,13 +116,24 @@ const confirmarAgendamento = async () => {
 
             <input
               type="date"
-              onChange={(e) => {
+              onChange={async (e) => {
                 if (desabilitarDias(e.target.value)) {
                   alert("Não atendemos nesse dia ❌");
                   return;
                 }
-                setDataSelecionada(e.target.value);
-                setTela("agenda");
+                const data = e.target.value;
+
+if (desabilitarDias(data)) {
+  alert("Não atendemos nesse dia ❌");
+  return;
+}
+
+setDataSelecionada(data);
+
+// 🔥 BUSCA HORÁRIOS OCUPADOS
+await buscarHorariosOcupados(data);
+
+setTela("agenda");
               }}
               style={{
                 padding: "10px",
@@ -145,7 +173,33 @@ const confirmarAgendamento = async () => {
               maxWidth: "500px",
               marginTop: "20px"
             }}>
-              {horarios.map((h) => (
+              {horarios.map((h) => {
+  const ocupado = horariosOcupados.includes(h);
+
+  return (
+    <button
+      key={h}
+      disabled={ocupado}
+      onClick={() => {
+        if (ocupado) return;
+
+        setHorarioSelecionado(h);
+        setTela("confirmar");
+      }}
+      style={{
+        padding: "12px",
+        borderRadius: "10px",
+        border: "none",
+        background: ocupado ? "#555" : "#fff",
+        color: ocupado ? "#aaa" : "#000",
+        cursor: ocupado ? "not-allowed" : "pointer",
+        fontWeight: "bold",
+      }}
+    >
+      {h} {ocupado ? "❌" : ""}
+    </button>
+  );
+})}
                 <button
                   key={h}
                   onClick={() => {
@@ -164,7 +218,7 @@ const confirmarAgendamento = async () => {
                 >
                   {h}
                 </button>
-              ))}
+              ))
             </div>
 
             <button
