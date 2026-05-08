@@ -173,7 +173,7 @@ const confirmarAgendamento = async () => {
               marginTop: "20px"
             }}>
               {horarios.map((h) => {
-  const ocupado = (horariosOcupados || []).includes(h)
+  const ocupado = (horariosOcupados || []).includes(h);
 
   return (
     <button
@@ -201,24 +201,33 @@ const confirmarAgendamento = async () => {
     </button>
   );
 })}
-                <button
-                  key={h}
-                  onClick={() => {
-                    setHorarioSelecionado(h);
-                    setTela("confirmar");
-                  }}
-                  style={{
-                    padding: "12px",
-                    borderRadius: "10px",
-                    border: "none",
-                    background: "#fff",
-                    cursor: "pointer",
-                    fontWeight: "bold",
-                    color: "#000",
-                  }}
-                >
-                  {h}
-                </button>
+               {horarios.map((h) => {
+  const ocupado = (horariosOcupados || []).includes(h);
+
+  return (
+    <button
+      key={h}
+      disabled={ocupado}
+      onClick={() => {
+        if (ocupado) return;
+
+        setHorarioSelecionado(h);
+        setTela("confirmar");
+      }}
+      style={{
+        padding: "12px",
+        borderRadius: "10px",
+        border: "none",
+        background: ocupado ? "#555" : "#fff",
+        color: ocupado ? "#aaa" : "#000",
+        cursor: ocupado ? "not-allowed" : "pointer",
+        fontWeight: "bold",
+      }}
+    >
+      {h} {ocupado ? "❌" : ""}
+    </button>
+  );
+})}
               ))
             </div>
 
