@@ -18,18 +18,36 @@ const listaFiltrada = lista.filter((a) => {
   return dataHora >= agora;
 });
 
-setAgendamentos(listaFiltrada);
-    });
+// 🔥 FILTRA PASSADOS
+const agora = new Date();
 
-    // Ordena cronologicamente
-    lista.sort((a, b) => {
-      const dateA = new Date(a.data);
-      const dateB = new Date(b.data);
-      return dateA - dateB;
-    });
+const listaFiltrada = lista.filter((a) => {
+  const dataHora = new Date(`${a.data}T${a.horario}`);
+  return dataHora >= agora;
+});
+
+// 🔥 ORDENA
+listaFiltrada.sort((a, b) => {
+  const dateA = new Date(`${a.data}T${a.horario}`);
+  const dateB = new Date(`${b.data}T${b.horario}`);
+  return dateA - dateB;
+});
+
+// 🔥 AGRUPA
+const agrupados = {};
+
+listaFiltrada.forEach((item) => {
+  if (!agrupados[item.data]) {
+    agrupados[item.data] = [];
+  }
+  agrupados[item.data].push(item);
+});
+
+// 🔥 FINAL
+setAgendamentos(agrupados);
 
     
-  };
+    })
 
   const formatarDataBr = (data) => {
     const [ano, mes, dia] = data.split("-");
@@ -124,4 +142,4 @@ setAgendamentos(listaFiltrada);
   );
 }
 
-export default Admin;
+export default Admin}
