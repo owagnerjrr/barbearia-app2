@@ -1,18 +1,5 @@
 {
-<<<<<<< HEAD
-  "version": 2,
-  "builds": [
-    {
-      "src": "package.json",
-      "use": "@vercel/static-build"
-    }
-  ],
   "rewrites": [
     { "source": "/(.*)", "destination": "/index.html" }
-=======
-  "rewrites": [
-    { "source": "/cliente", "destination": "/index.html" },
-    { "source": "/admin", "destination": "/index.html" }
->>>>>>> a8a6166363017e8bcd834d6622dbbfc83f647cbd
   ]
 }
