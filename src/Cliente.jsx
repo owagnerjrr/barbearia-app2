@@ -154,9 +154,9 @@ const confirmarAgendamento = async () => {
       return;
     }
 
-    if (desabilitarDias(data)) {
-      alert("Não atendemos nesse dia ❌");
-      return;
+    if (diaSemana === 0 || diaSemana === 1) {
+  alert("Não atendemos domingo e segunda ❌");
+  return;
     }
 
     setDataSelecionada(data);
