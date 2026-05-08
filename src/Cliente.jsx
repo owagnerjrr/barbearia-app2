@@ -3,7 +3,7 @@ import { db } from "./firebase";
 import { collection, addDoc, getDocs } from "firebase/firestore";
 
 function Cliente() {
-  const [tela, setTela] = useState("agenda");
+  const [tela, setTela] = useState("home"); ✅
   const [horarioSelecionado, setHorarioSelecionado] = useState("");
   const [dataSelecionada, setDataSelecionada] = useState("");
   const [nome, setNome] = useState("");
