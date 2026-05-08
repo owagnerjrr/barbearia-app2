@@ -98,7 +98,23 @@ setAgendamentos(agrupados);
           <p style={{ color: "#eee", textAlign: "center" }}>Nenhum agendamento encontrado</p>
         )}
 
-        {agendamentos.map((a) => (
+        {Object.keys(agendamentos).sort().map((data) => (
+  <div key={data}>
+
+    <h3 style={{ color: "#fff" }}>
+      📅 {formatarDataBr(data)}
+    </h3>
+
+    {agendamentos[data].map((a) => (
+      <div key={a.id}>
+        <p>{a.nome}</p>
+        <p>📞 {a.telefone}</p>
+        <p>⏰ {a.horario}</p>
+      </div>
+    ))}
+
+  </div>
+))}
           <div key={a.id} style={{
             display: "flex",
             flexDirection: "column",
@@ -133,7 +149,7 @@ setAgendamentos(agrupados);
               <span style={{ color: "#ddd" }}>⏰ {a.horario}</span>
             </div>
           </div>
-        ))}
+        ))
 
       </div>
     </div>
