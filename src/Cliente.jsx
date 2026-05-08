@@ -51,10 +51,7 @@ const confirmarAgendamento = async () => {
   }
 };
 
-  const horarios = [
-    "07:00", "08:00", "09:00", "09:40",
-    "10:20", "11:00", "11:40", "12:00","12:30", "13:00",
-  ];
+  ;
 
   const desabilitarDias = (date) => {
     const dia = new Date(date).getDay();
