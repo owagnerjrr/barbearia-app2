@@ -116,25 +116,17 @@ const confirmarAgendamento = async () => {
 
             <input
               type="date"
-              onChange={async (e) => {
-                if (desabilitarDias(e.target.value)) {
-                  alert("Não atendemos nesse dia ❌");
-                  return;
-                }
-                const data = e.target.value;
+             onChange={async (e) => {
+  const data = e.target.value;
 
-if (desabilitarDias(data)) {
-  alert("Não atendemos nesse dia ❌");
-  return;
-}
 
-setDataSelecionada(data);
+  setDataSelecionada(data);
 
-// 🔥 BUSCA HORÁRIOS OCUPADOS
-await buscarHorariosOcupados(data);
+  // 🔥 BUSCA HORÁRIOS OCUPADOS
+  await buscarHorariosOcupados(data);
 
-setTela("agenda");
-              }}
+  setTela("agenda");
+}}
               style={{
                 padding: "10px",
                 borderRadius: "10px",
