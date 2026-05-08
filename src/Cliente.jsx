@@ -238,33 +238,7 @@ const ocupado = (horariosOcupados || []).includes(h) || horarioPassado;
     </button>
   );
 })}
-               {horarios.map((h) => {
-  const ocupado = (horariosOcupados || []).includes(h);
 
-  return (
-    <button
-      key={h}
-      disabled={ocupado}
-      onClick={() => {
-        if (ocupado) return;
-
-        setHorarioSelecionado(h);
-        setTela("confirmar");
-      }}
-      style={{
-        padding: "12px",
-        borderRadius: "10px",
-        border: "none",
-        background: ocupado ? "#555" : "#fff",
-        color: ocupado ? "#aaa" : "#000",
-        cursor: ocupado ? "not-allowed" : "pointer",
-        fontWeight: "bold",
-      }}
-    >
-      {h} {ocupado ? "❌" : ""}
-    </button>
-  );
-})}
               
             </div>
 
