@@ -152,7 +152,7 @@ Confirmado 👍`;
             <button
               onClick={() => setTela("area")}
               style={{
-             marginTop: "350px",
+             marginTop: "349px",
                 padding: "14px 32px",
                 background: "linear-gradient(145deg, #d4af37, #b8962e)",
                 color: "#000",
