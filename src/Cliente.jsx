@@ -261,7 +261,18 @@ function Cliente() {
               placeholder="Seu nome"
               value={nome}
               onChange={(e) => setNome(e.target.value)}
-              
+              style={{
+                padding: "12px",
+        borderRadius: "12px",
+        border: "1px solid rgba(212,175,55,0.6)",
+        background: "rgba(0,0,0,0.8)",
+        color: "#fff",
+        width: "100%",
+        maxWidth: "320px",
+        marginBottom: "20px",
+        outline: "none",
+        boxShadow: "0 0 10px rgba(212,175,55,0.2)"
+              }}
             />
 
             <br />
