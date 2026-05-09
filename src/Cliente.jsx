@@ -232,7 +232,7 @@ function Cliente() {
               
              onClick={() => setTela("home")}
               style={{
-                marginTop: "10px",
+                marginTop: "50px",
                 padding: "10px 20px",
                 background: "transparent",
                 color: "#d4af37",
