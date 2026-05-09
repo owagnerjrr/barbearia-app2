@@ -329,7 +329,20 @@ function Cliente() {
 
             <br />
 
-            <button onClick={() => setTela("agenda")}>
+            <button onClick={() => setTela("agenda")}
+               onClick={() => setTela("agenda")}
+  style={{
+    marginTop: "8px",
+    padding: "8px 20px",
+    background: "transparent",
+    color: "#d4af37",
+    border: "1px solid rgba(212,175,55,0.6)",
+    borderRadius: "10px",
+    cursor: "pointer",
+    fontWeight: "500",
+    transition: "0.2s"
+  }}
+              >
               Voltar
             </button>
           </div>
