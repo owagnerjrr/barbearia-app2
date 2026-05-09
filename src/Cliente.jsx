@@ -174,11 +174,12 @@ function Cliente() {
               style={{
                 marginTop: "10px",
                 padding: "10px 20px",
-                background: "transparent",
-                color: "#d4af37",
-                border: "1px solid #d4af37",
-                borderRadius: "10px",
+                background: "linear-gradient(145deg, #d4af37, #b8962e)",
+                color: "#000",
+                border: "none",
+                borderRadius: "20px",
                 cursor: "pointer"
+                
               }}
             >
               VOLTAR
