@@ -1,9 +1,8 @@
 ﻿import { useState } from "react";
 import { db } from "./firebase";
-import { collection, addDoc, getDocs } from "firebase/firestore";
+import { collection, addDoc, getDocs, deleteDoc, doc } from "firebase/firestore";
 import DatePicker from "react-datepicker";
 import "react-datepicker/dist/react-datepicker.css";
-import ClienteArea from "./ClienteArea";
 
 function Cliente() {
   const [tela, setTela] = useState("home");
@@ -14,6 +13,9 @@ function Cliente() {
   const [horariosOcupados, setHorariosOcupados] = useState([]);
   const [mostrarCalendario, setMostrarCalendario] = useState(false);
   const [dataObj, setDataObj] = useState(null);
+
+  const [buscaTelefone, setBuscaTelefone] = useState("");
+  const [meusAgendamentos, setMeusAgendamentos] = useState([]);
 
   const horarios = [
     "07:00","08:00","09:00","09:40","10:20",
@@ -64,6 +66,30 @@ Confirmado 👍`;
       console.error(error);
       alert("Erro ao agendar");
     }
+  };
+
+  const buscarMeusAgendamentos = async () => {
+    const querySnapshot = await getDocs(collection(db, "agendamentos"));
+    const lista = [];
+
+    querySnapshot.forEach((docItem) => {
+      const data = docItem.data();
+      if (data.telefone === buscaTelefone) {
+        lista.push({
+          id: docItem.id,
+          ...data
+        });
+      }
+    });
+
+    setMeusAgendamentos(lista);
+  };
+
+  const cancelarAgendamento = async (id) => {
+    if (!window.confirm("Cancelar agendamento?")) return;
+
+    await deleteDoc(doc(db, "agendamentos", id));
+    buscarMeusAgendamentos();
   };
 
   const desabilitarDias = (date) => {
@@ -142,7 +168,85 @@ Confirmado 👍`;
         )}
 
         {tela === "area" && (
-          <ClienteArea />
+          <div style={{ textAlign: "center", marginTop: "-200px" }}>
+            <h2>Meus Agendamentos</h2>
+
+            <input
+              placeholder="Digite seu telefone"
+              value={buscaTelefone}
+              onChange={(e) => setBuscaTelefone(e.target.value)}
+              style={{
+                padding: "12px",
+                borderRadius: "12px",
+                border: "1px solid rgba(212,175,55,0.6)",
+                background: "rgba(0,0,0,0.8)",
+                color: "#fff",
+                marginBottom: "15px"
+              }}
+            />
+
+            <br />
+
+            <button
+              onClick={buscarMeusAgendamentos}
+              style={{
+                padding: "10px 20px",
+                background: "linear-gradient(145deg, #d4af37, #b8962e)",
+                color: "#000",
+                border: "none",
+                borderRadius: "12px",
+                cursor: "pointer"
+              }}
+            >
+              Buscar
+            </button>
+
+            <div style={{ marginTop: "20px" }}>
+              {meusAgendamentos.map((a) => (
+                <div
+                  key={a.id}
+                  style={{
+                    background: "rgba(255,255,255,0.1)",
+                    padding: "15px",
+                    borderRadius: "15px",
+                    marginBottom: "10px"
+                  }}
+                >
+                  <p>{a.data}</p>
+                  <p>{a.horario}</p>
+
+                  <button
+                    onClick={() => cancelarAgendamento(a.id)}
+                    style={{
+                      marginTop: "10px",
+                      padding: "8px 20px",
+                      background: "#ff4d4d",
+                      border: "none",
+                      borderRadius: "10px",
+                      cursor: "pointer"
+                    }}
+                  >
+                    Cancelar
+                  </button>
+                </div>
+              ))}
+            </div>
+
+            <button
+              onClick={() => setTela("home")}
+              style={{
+                marginTop: "20px",
+                padding: "10px 25px",
+                background: "linear-gradient(145deg, #d4af37, #b8962e)",
+                color: "#000",
+                border: "none",
+                borderRadius: "12px",
+                cursor: "pointer"
+              }}
+            >
+              Voltar
+            </button>
+          </div>
         )}
 
         {tela === "data" && (
