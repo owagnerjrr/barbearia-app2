@@ -308,18 +308,7 @@ function Cliente() {
                 setTela("home");
               }}
             >
-              style={{
-        padding: "14px 40px",
-        background: "linear-gradient(145deg, #d4af37, #b8962e)",
-        color: "#000",
-        border: "none",
-        borderRadius: "30px",
-        cursor: "pointer",
-        fontWeight: "bold",
-        fontSize: "1.1rem",
-        boxShadow: "0 6px 20px rgba(212,175,55,0.3)",
-        marginBottom: "10px"
-      }}
+              
               Confirmar
             </button>
 
