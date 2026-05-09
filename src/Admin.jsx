@@ -81,7 +81,7 @@ function Admin() {
           maxWidth: "350px",
           background: "rgba(255,255,255,0.12)",
           backdropFilter: "blur(6px)",
-          padding: "20px",
+          padding: "5px",
           textAlign: "left",
           boxShadow: "0 0 45px rgba(0,0,0,0.25)",
           border: "1px solid rgba(255,255,255,0.22)",
