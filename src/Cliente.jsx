@@ -271,7 +271,7 @@ function Cliente() {
         maxWidth: "320px",
         marginBottom: "20px",
         outline: "none",
-        boxShadow: "0 0 10px rgba(251, 250, 249, 0.2)"
+        boxShadow: "0 0 10px rgb(255, 255, 255)"
               }}
             />
 
