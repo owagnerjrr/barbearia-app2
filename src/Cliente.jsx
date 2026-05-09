@@ -269,7 +269,7 @@ function Cliente() {
         color: "#fff",
         width: "100%",
         maxWidth: "320px",
-        marginBottom: "50px",
+        marginBottom: "25px",
         outline: "none",
         boxShadow: "0 0 10px rgba(212,175,55,0.2)"
               }}
