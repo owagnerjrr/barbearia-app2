@@ -316,8 +316,8 @@ function Cliente() {
             <button onClick={() => setTela("agenda")}>
         style={{
         padding: "10px 20px",
-        background: "transparent",
-        color: "#d4af37",
+        
+       
         
         
         
