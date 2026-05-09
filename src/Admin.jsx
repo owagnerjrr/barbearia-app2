@@ -17,7 +17,6 @@ function Admin() {
       });
     });
 
-    // 🔥 FILTRA PASSADOS
     const agora = new Date();
 
     const listaFiltrada = lista.filter((a) => {
@@ -25,14 +24,12 @@ function Admin() {
       return dataHora >= agora;
     });
 
-    // 🔥 ORDENA
     listaFiltrada.sort((a, b) => {
       const dateA = new Date(`${a.data}T${a.horario}`);
       const dateB = new Date(`${b.data}T${b.horario}`);
       return dateA - dateB;
     });
 
-    // 🔥 AGRUPA POR DATA
     const agrupados = {};
 
     listaFiltrada.forEach((item) => {
@@ -68,7 +65,6 @@ function Admin() {
         backgroundImage: "url('/fundo.png?v=1')",
         backgroundSize: "cover",
         backgroundPosition: "center",
-        backgroundRepeat: "no-repeat",
         display: "flex",
         justifyContent: "center",
         alignItems: "center",
@@ -77,18 +73,19 @@ function Admin() {
     >
       <div
         style={{
-          width: "80%",
-          maxWidth: "270px",
-          background: "rgba(255,255,255,0.12)",
+          width: "90%",
+          maxWidth: "420px",
+          background: "rgba(255,255,255,0.10)",
           backdropFilter: "blur(6px)",
-          padding: "5px",
-          textAlign: "left",
-          boxShadow: "0 0 45px rgba(0,0,0,0.25)",
-          border: "1px solid rgba(255,255,255,0.22)",
-          borderRadius: "24px"
+          padding: "20px",
+          boxShadow: "0 0 30px rgba(0,0,0,0.25)",
+          border: "1px solid rgba(255,255,255,0.2)",
+          borderRadius: "20px"
         }}
       >
-        <h2 style={{ textAlign: "center" }}>📋 Agendamentos</h2>
+        <h2 style={{ textAlign: "center", marginBottom: "15px" }}>
+          📋 Agendamentos
+        </h2>
 
         {Object.keys(agendamentos).length === 0 && (
           <p style={{ textAlign: "center" }}>
@@ -99,8 +96,21 @@ function Admin() {
         {Object.keys(agendamentos)
           .sort()
           .map((data) => (
-            <div key={data} style={{ marginBottom: "40px" }}>
-              <h3>📅 {formatarDataBr(data)}</h3>
+            <div key={data} style={{ marginBottom: "25px" }}>
+              
+              {/* DATA DESTACADA */}
+              <h3
+                style={{
+                  background: "rgba(212,175,55,0.15)",
+                  padding: "6px 10px",
+                  borderRadius: "10px",
+                  display: "inline-block",
+                  fontWeight: "bold",
+                  border: "1px solid rgba(212,175,55,0.3)"
+                }}
+              >
+                📅 {formatarDataBr(data)}
+              </h3>
 
               {agendamentos[data].map((a) => (
                 <div
@@ -112,26 +122,51 @@ function Admin() {
                     background: "rgba(255,255,255,0.1)",
                     padding: "10px",
                     borderRadius: "16px",
-                    marginBottom: "8px"
+                    marginTop: "10px"
                   }}
                 >
                   <p style={{ fontWeight: "bold" }}>{a.nome}</p>
                   <p>📞 {a.telefone}</p>
-                  <p>⏰ {a.horario}</p>
+
+                  {/* HORÁRIO DESTACADO */}
+                  <div
+                    style={{
+                      display: "flex",
+                      justifyContent: "space-between",
+                      alignItems: "center"
+                    }}
+                  >
+                    <span style={{ fontSize: "12px", opacity: 0.7 }}>
+                      ⏰ Horário
+                    </span>
+
+                    <span
+                      style={{
+                        background: "linear-gradient(145deg, #d4af37, #b8962e)",
+                        color: "#000",
+                        padding: "5px 12px",
+                        borderRadius: "10px",
+                        fontWeight: "bold",
+                        fontSize: "14px",
+                        boxShadow: "0 2px 8px rgba(212,175,55,0.4)"
+                      }}
+                    >
+                      {a.horario}
+                    </span>
+                  </div>
 
                   <button
                     onClick={() => excluirAgendamento(a.id)}
                     style={{
-                    marginTop: "10px",
-    padding: "10px 25px",
-    background: "linear-gradient(145deg, #d4af37, #b8962e)",
-    color: "#000",
-    border: "none",
-    borderRadius: "12px",
-    cursor: "pointer",
-    fontWeight: "600",
-    boxShadow: "0 4px 12px rgba(212,175,55,0.3)",
-    transition: "0.2s"
+                      marginTop: "10px",
+                      padding: "10px",
+                      background: "linear-gradient(145deg, #d4af37, #b8962e)",
+                      color: "#000",
+                      border: "none",
+                      borderRadius: "12px",
+                      cursor: "pointer",
+                      fontWeight: "600",
+                      boxShadow: "0 4px 12px rgba(212,175,55,0.3)"
                     }}
                   >
                     ❌ Excluir
@@ -144,6 +179,5 @@ function Admin() {
     </div>
   );
 }
-
 
 export default Admin;
