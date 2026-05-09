@@ -236,7 +236,7 @@ function Cliente() {
                 padding: "10px 20px",
                 background: "linear-gradient(145deg, #d4af37, #b8962e)",
                 color: "#050400",
-                border: "1px solid #d4af37",
+                border: "1px solid #070500",
                 borderRadius: "10px",
                 cursor: "pointer"
               }}>Voltar
