@@ -142,7 +142,7 @@ function Admin() {
 
                     <span
                       style={{
-                        background: "linear-gradient(145deg, #e2c7c7, #d9caca)",
+                        background: "linear-gradient(145deg, #ffffff, #d9caca)",
                         color: "#000",
                         padding: "10px 24px",
                         borderRadius: "10px",
