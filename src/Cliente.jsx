@@ -3,6 +3,7 @@ import { db } from "./firebase";
 import { collection, addDoc, getDocs } from "firebase/firestore";
 import DatePicker from "react-datepicker";
 import "react-datepicker/dist/react-datepicker.css";
+import ClienteArea from "./ClienteArea";
 
 function Cliente() {
   const [tela, setTela] = useState("home");
@@ -53,7 +54,7 @@ function Cliente() {
 
 Confirmado 👍`;
 
-      const telefoneFormatado = "35998598071"; // 👈 SEU NÚMERO AQUI
+      const telefoneFormatado = "35998598071";
 
       const url = `https://wa.me/55${telefoneFormatado}?text=${encodeURIComponent(mensagem)}`;
 
@@ -121,7 +122,27 @@ Confirmado 👍`;
             >
               Agendar
             </button>
+
+            <button
+              onClick={() => setTela("area")}
+              style={{
+                marginTop: "20px",
+                padding: "12px 28px",
+                background: "transparent",
+                color: "#d4af37",
+                border: "1px solid #d4af37",
+                borderRadius: "20px",
+                cursor: "pointer",
+                fontWeight: "600"
+              }}
+            >
+              Meus agendamentos
+            </button>
           </div>
+        )}
+
+        {tela === "area" && (
+          <ClienteArea />
         )}
 
         {tela === "data" && (
