@@ -315,15 +315,9 @@ function Cliente() {
 
             <button onClick={() => setTela("agenda")}>
         style={{
-        padding: "10px 20px",
-        
-       
-        
-        
-        
+        padding: "10px 20px",      
       }}
-    
-            
+      
               Voltar
             </button>
           </div>
