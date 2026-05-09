@@ -197,10 +197,7 @@ function Cliente() {
             {horarios.map((h) => {
               const agora = new Date();
               const dataHoje = new Date().toISOString().split("T")[0];
-              const formatarDataBr = (data) => {
-  const [ano, mes, dia] = data.split("-");
-  return `${dia}/${mes}/${ano}`;
-};
+              
               const horarioPassado =
                 dataSelecionada === dataHoje &&
                 h < agora.toTimeString().slice(0, 5);
@@ -257,7 +254,7 @@ function Cliente() {
           <div style={{ textAlign: "center", marginTop: "-320px" }}>
             <h2>Confirmar horário</h2>
 
-            <p>{dataSelecionada}</p>
+            <p>{dataSelecionada && dataSelecionada.split("-").reverse().join("/")}</p>
             <p>{horarioSelecionado}</p>
 
             <input
