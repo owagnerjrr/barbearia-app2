@@ -145,8 +145,5 @@ function Admin() {
   );
 }
 
-<h2 style={{ textAlign: "center" }}>
-  📋 Agendamentos TESTE
-</h2>
 
 export default Admin;
