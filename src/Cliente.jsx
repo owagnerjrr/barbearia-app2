@@ -135,39 +135,47 @@ function Cliente() {
             </h2>
 
             <input
-              type="date"
-              onChange={async (e) => {
-                const data = e.target.value;
-                const hoje = new Date().toISOString().split("T")[0];
+  type="date"
+  onChange={async (e) => {
+    let data = e.target.value;
 
-                if (desabilitarDias(data)) {
-                  alert("Não atendemos domingo e segunda ❌");
-                  return;
-                }
+    if (!data) return;
 
-                if (data < hoje) {
-                  alert("Essa data já passou ❌");
-                  return;
-                }
+    await new Promise((r) => setTimeout(r, 100));
+    data = e.target.value;
 
-                setDataSelecionada(data);
-                await buscarHorariosOcupados(data);
-                setTela("agenda");
-              }}
-              style={{
-                padding: "14px",
-                borderRadius: "14px",
-                border: "1px solid rgba(212,175,55,0.7)",
-                background: "rgba(156, 147, 90, 0.85)",
-                color: "#fff",
-                fontSize: "1rem",
-                outline: "none",
-                width: "100%",
-                maxWidth: "220px",
-                marginBottom: "25px",
-                boxShadow: "0 0 15px rgba(212,175,55,0.2)"
-              }}
-            />
+    if (!data) return;
+
+    const hoje = new Date().toISOString().split("T")[0];
+
+    if (desabilitarDias(data)) {
+      alert("Não atendemos domingo e segunda ❌");
+      return;
+    }
+
+    if (data < hoje) {
+      alert("Essa data já passou ❌");
+      return;
+    }
+
+    setDataSelecionada(data);
+    await buscarHorariosOcupados(data);
+    setTela("agenda");
+  }}
+  style={{
+    padding: "14px",
+    borderRadius: "14px",
+    border: "1px solid rgba(212,175,55,0.7)",
+    background: "rgba(156, 147, 90, 0.85)",
+    color: "#fff",
+    fontSize: "1rem",
+    outline: "none",
+    width: "100%",
+    maxWidth: "220px",
+    marginBottom: "25px",
+    boxShadow: "0 0 15px rgba(212,175,55,0.2)"
+  }}
+/>
 
             <br />
 
