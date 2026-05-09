@@ -78,10 +78,10 @@ function Admin() {
       <div
         style={{
           width: "100%",
-          maxWidth: "820px",
+          maxWidth: "500px",
           background: "rgba(255,255,255,0.12)",
-          backdropFilter: "blur(12px)",
-          padding: "40px 30px",
+          backdropFilter: "blur(6px)",
+          padding: "20px",
           textAlign: "left",
           boxShadow: "0 0 45px rgba(0,0,0,0.25)",
           border: "1px solid rgba(255,255,255,0.22)",
