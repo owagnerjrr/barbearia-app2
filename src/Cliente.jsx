@@ -332,14 +332,15 @@ function Cliente() {
             <button onClick={() => setTela("agenda")}
                onClick={() => setTela("agenda")}
   style={{
-    marginTop: "8px",
-    padding: "8px 20px",
-    background: "transparent",
-    color: "#d4af37",
-    border: "1px solid rgba(212,175,55,0.6)",
-    borderRadius: "10px",
+    marginTop: "10px",
+    padding: "10px 25px",
+    background: "linear-gradient(145deg, #d4af37, #b8962e)",
+    color: "#000",
+    border: "none",
+    borderRadius: "12px",
     cursor: "pointer",
-    fontWeight: "500",
+    fontWeight: "600",
+    boxShadow: "0 4px 12px rgba(212,175,55,0.3)",
     transition: "0.2s"
   }}
               >
