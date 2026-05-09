@@ -228,7 +228,20 @@ function Cliente() {
             })}
 
             <br />
-            <button onClick={() => setTela("data")}>Voltar</button>
+            <button onClick={() => setTela("data")}
+              
+             onClick={() => setTela("home")}
+              style={{
+                marginTop: "10px",
+                padding: "10px 20px",
+                background: "transparent",
+                color: "#d4af37",
+                border: "1px solid #d4af37",
+                borderRadius: "10px",
+                cursor: "pointer"
+              }}>Voltar
+              
+              </button>
           </div>
         )}
 
