@@ -152,14 +152,16 @@ Confirmado 👍`;
             <button
               onClick={() => setTela("area")}
               style={{
-                marginTop: "20px",
-                padding: "12px 28px",
-                background: "transparent",
-                color: "#d4af37",
-                border: "1px solid #d4af37",
+             marginTop: "400px",
+                padding: "14px 32px",
+                background: "linear-gradient(145deg, #d4af37, #b8962e)",
+                color: "#000",
+                border: "none",
                 borderRadius: "20px",
                 cursor: "pointer",
-                fontWeight: "600"
+                fontWeight: "bold",
+                fontSize: "1rem",
+                boxShadow: "0 6px 20px rgba(212,175,55,0.3)"
               }}
             >
               Meus agendamentos
