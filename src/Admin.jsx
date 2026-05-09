@@ -78,7 +78,7 @@ function Admin() {
       <div
         style={{
           width: "80%",
-          maxWidth: "300px",
+          maxWidth: "250px",
           background: "rgba(255,255,255,0.12)",
           backdropFilter: "blur(6px)",
           padding: "5px",
