@@ -235,9 +235,12 @@ function Cliente() {
                 marginTop: "50px",
                 padding: "10px 20px",
                 background: "linear-gradient(145deg, #d4af37, #b8962e)",
-                color: "#050400",
-                border: "1px solid #070500",
-                borderRadius: "10px",
+                color: "#000",
+                border: "none",
+                borderRadius: "20px",
+                fontWeight: "bold",
+                FontSize: "1rem",
+                boxshadow: "0 6px 20px rgba(212,175,55,0.3)",
                 cursor: "pointer"
               }}>Voltar
               
