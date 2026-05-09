@@ -53,7 +53,7 @@ function Cliente() {
 
 Responda OK para confirmar 👍`;
 
-      const telefoneFormatado = telefone.replace(/\D/g, "");
+      const telefoneFormatado = "35998598071"; // 👈 SEU NÚMERO AQUI
 
       const url = `https://wa.me/55${telefoneFormatado}?text=${encodeURIComponent(mensagem)}`;
 
