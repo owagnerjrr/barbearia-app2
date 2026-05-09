@@ -43,9 +43,25 @@ function Cliente() {
         horario: horarioSelecionado
       });
 
-      alert("Agendado com sucesso!");
+      const dataBR = dataSelecionada.split("-").reverse().join("/");
+
+      const mensagem = `💈 Agendamento confirmado!
+
+👤 ${nome}
+📅 ${dataBR}
+⏰ ${horarioSelecionado}
+
+Responda OK para confirmar 👍`;
+
+      const telefoneFormatado = telefone.replace(/\D/g, "");
+
+      const url = `https://wa.me/55${telefoneFormatado}?text=${encodeURIComponent(mensagem)}`;
+
+      window.location.href = url;
+
     } catch (error) {
       console.error(error);
+      alert("Erro ao agendar");
     }
   };
 
