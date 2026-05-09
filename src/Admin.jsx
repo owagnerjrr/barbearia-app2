@@ -99,7 +99,7 @@ function Admin() {
         {Object.keys(agendamentos)
           .sort()
           .map((data) => (
-            <div key={data} style={{ marginBottom: "20px" }}>
+            <div key={data} style={{ marginBottom: "40px" }}>
               <h3>📅 {formatarDataBr(data)}</h3>
 
               {agendamentos[data].map((a) => (
