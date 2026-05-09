@@ -134,37 +134,40 @@ function Cliente() {
               Escolha uma data
             </h2>
 
-  <DatePicker
-  selected={dataSelecionada}
-  onChange={async (date) => {
-    if (!date) return;
+            <input
+              type="date"
+              onChange={async (e) => {
+                const data = e.target.value;
+                const hoje = new Date().toISOString().split("T")[0];
 
-    const ano = date.getFullYear();
-    const mes = String(date.getMonth() + 1).padStart(2, "0");
-    const dia = String(date.getDate()).padStart(2, "0");
-    const dataFormatada = `${ano}-${mes}-${dia}`;
+                if (desabilitarDias(data)) {
+                  alert("Não atendemos domingo e segunda ❌");
+                  return;
+                }
 
-    const hoje = new Date().toISOString().split("T")[0];
+                if (data < hoje) {
+                  alert("Essa data já passou ❌");
+                  return;
+                }
 
-    if (desabilitarDias(dataFormatada)) {
-      alert("Não atendemos domingo e segunda ❌");
-      return;
-    }
-
-    if (dataFormatada < hoje) {
-      alert("Essa data já passou ❌");
-      return;
-    }
-
-    setDataSelecionada(date);
-    await buscarHorariosOcupados(dataFormatada);
-    setTela("agenda");
-  }}
-  dateFormat="dd/MM/yyyy"
-  placeholderText="Selecione uma data"
-  minDate={new Date()}
-  className="custom-datepicker"
-/>
+                setDataSelecionada(data);
+                await buscarHorariosOcupados(data);
+                setTela("agenda");
+              }}
+              style={{
+                padding: "14px",
+                borderRadius: "14px",
+                border: "1px solid rgba(212,175,55,0.7)",
+                background: "rgba(156, 147, 90, 0.85)",
+                color: "#fff",
+                fontSize: "1rem",
+                outline: "none",
+                width: "100%",
+                maxWidth: "220px",
+                marginBottom: "25px",
+                boxShadow: "0 0 15px rgba(212,175,55,0.2)"
+              }}
+            />
 
             <br />
 
