@@ -136,7 +136,7 @@ function Admin() {
                       alignItems: "center"
                     }}
                   >
-                    <span style={{ fontSize: "12px", opacity: 0.7 }}>
+                    <span style={{ fontSize: "20px", opacity: 0.7 }}>
                       ⏰ Horário
                     </span>
 
