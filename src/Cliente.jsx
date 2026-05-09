@@ -258,7 +258,7 @@ function Cliente() {
             <p>{horarioSelecionado}</p>
 
             <input
-              placeholder="Seu nome"
+              placeholder="Nome Completo"
               value={nome}
               onChange={(e) => setNome(e.target.value)}
               style={{
@@ -280,7 +280,7 @@ function Cliente() {
             <br />
 
             <input
-              placeholder="Seu telefone"
+              placeholder="Telefone para contato"
               value={telefone}
               onChange={(e) => setTelefone(e.target.value)}
               style={{
