@@ -7,10 +7,12 @@ import "react-datepicker/dist/react-datepicker.css";
 function Cliente() {
   const [tela, setTela] = useState("home");
   const [horarioSelecionado, setHorarioSelecionado] = useState("");
-  const [dataSelecionada, setDataSelecionada] = useState(null);
+  const [dataSelecionada, setDataSelecionada] = useState("");
   const [nome, setNome] = useState("");
   const [telefone, setTelefone] = useState("");
   const [horariosOcupados, setHorariosOcupados] = useState([]);
+  const [mostrarCalendario, setMostrarCalendario] = useState(false);
+  const [dataObj, setDataObj] = useState(null);
 
   const horarios = [
     "07:00","08:00","09:00","09:40","10:20",
@@ -77,7 +79,6 @@ function Cliente() {
         alignItems: "center"
       }}>
 
-        {/* HOME */}
         {tela === "home" && (
           <div style={{ textAlign: "center", marginTop: "-100px" }}>
             <h1 style={{
@@ -107,7 +108,6 @@ function Cliente() {
           </div>
         )}
 
-        {/* DATA */}
         {tela === "data" && (
           <div style={{
             textAlign: "center",
@@ -135,47 +135,58 @@ function Cliente() {
             </h2>
 
             <input
-  type="date"
-  onChange={async (e) => {
-    let data = e.target.value;
+              type="text"
+              readOnly
+              placeholder="Selecione uma data"
+              value={dataSelecionada ? dataSelecionada.split("-").reverse().join("/") : ""}
+              onClick={() => setMostrarCalendario(true)}
+              style={{
+                padding: "14px",
+                borderRadius: "14px",
+                border: "1px solid rgba(212,175,55,0.7)",
+                background: "rgba(156, 147, 90, 0.85)",
+                color: "#fff",
+                fontSize: "1rem",
+                outline: "none",
+                width: "100%",
+                maxWidth: "220px",
+                marginBottom: "25px",
+                boxShadow: "0 0 15px rgba(212,175,55,0.2)"
+              }}
+            />
 
-    if (!data) return;
+            {mostrarCalendario && (
+              <DatePicker
+                selected={dataObj}
+                inline
+                onChange={async (date) => {
+                  setMostrarCalendario(false);
+                  setDataObj(date);
 
-    await new Promise((r) => setTimeout(r, 100));
-    data = e.target.value;
+                  const ano = date.getFullYear();
+                  const mes = String(date.getMonth() + 1).padStart(2, "0");
+                  const dia = String(date.getDate()).padStart(2, "0");
+                  const dataFormatada = `${ano}-${mes}-${dia}`;
 
-    if (!data) return;
+                  const hoje = new Date().toISOString().split("T")[0];
 
-    const hoje = new Date().toISOString().split("T")[0];
+                  if (desabilitarDias(dataFormatada)) {
+                    alert("Não atendemos domingo e segunda ❌");
+                    return;
+                  }
 
-    if (desabilitarDias(data)) {
-      alert("Não atendemos domingo e segunda ❌");
-      return;
-    }
+                  if (dataFormatada < hoje) {
+                    alert("Essa data já passou ❌");
+                    return;
+                  }
 
-    if (data < hoje) {
-      alert("Essa data já passou ❌");
-      return;
-    }
-
-    setDataSelecionada(data);
-    await buscarHorariosOcupados(data);
-    setTela("agenda");
-  }}
-  style={{
-    padding: "14px",
-    borderRadius: "14px",
-    border: "1px solid rgba(212,175,55,0.7)",
-    background: "rgba(156, 147, 90, 0.85)",
-    color: "#fff",
-    fontSize: "1rem",
-    outline: "none",
-    width: "100%",
-    maxWidth: "220px",
-    marginBottom: "25px",
-    boxShadow: "0 0 15px rgba(212,175,55,0.2)"
-  }}
-/>
+                  setDataSelecionada(dataFormatada);
+                  await buscarHorariosOcupados(dataFormatada);
+                  setTela("agenda");
+                }}
+                minDate={new Date()}
+              />
+            )}
 
             <br />
 
@@ -189,7 +200,6 @@ function Cliente() {
                 border: "none",
                 borderRadius: "20px",
                 cursor: "pointer"
-                
               }}
             >
               VOLTAR
@@ -197,7 +207,6 @@ function Cliente() {
           </div>
         )}
 
-        {/* AGENDA */}
         {tela === "agenda" && (
           <div style={{ textAlign: "center", marginTop: "-320px" }}>
             <h2 style={{ textShadow: "2px 2px 10px rgba(0,0,0,0.6)" }}>
@@ -239,9 +248,8 @@ function Cliente() {
             })}
 
             <br />
-            <button onClick={() => setTela("data")}
-              
-             onClick={() => setTela("home")}
+            <button
+              onClick={() => setTela("home")}
               style={{
                 marginTop: "50px",
                 padding: "10px 20px",
@@ -250,16 +258,14 @@ function Cliente() {
                 border: "none",
                 borderRadius: "20px",
                 fontWeight: "bold",
-                FontSize: "1rem",
-                boxshadow: "0 6px 20px rgba(212,175,55,0.3)",
                 cursor: "pointer"
-              }}>Voltar
-              
-              </button>
+              }}
+            >
+              Voltar
+            </button>
           </div>
         )}
 
-        {/* CONFIRMAR */}
         {tela === "confirmar" && (
           <div style={{ textAlign: "center", marginTop: "-320px" }}>
             <h2>Confirmar horário</h2>
@@ -273,17 +279,17 @@ function Cliente() {
               onChange={(e) => setNome(e.target.value)}
               style={{
                 padding: "12px",
-        borderRadius: "12px",
-        border: "1px solid rgba(212,175,55,0.6)",
-        background: "rgba(0,0,0,0.8)",
-        color: "#fff",
-        fontWeight: "600",
-        fontSize: "1rem",
-        width: "100%",
-        maxWidth: "320px",
-        marginBottom: "20px",
-        outline: "none",
-        boxShadow: "0 0 10px rgba(212,175,55,0.2)"
+                borderRadius: "12px",
+                border: "1px solid rgba(212,175,55,0.6)",
+                background: "rgba(0,0,0,0.8)",
+                color: "#fff",
+                fontWeight: "600",
+                fontSize: "1rem",
+                width: "100%",
+                maxWidth: "320px",
+                marginBottom: "20px",
+                outline: "none",
+                boxShadow: "0 0 10px rgba(212,175,55,0.2)"
               }}
             />
 
@@ -294,19 +300,19 @@ function Cliente() {
               value={telefone}
               onChange={(e) => setTelefone(e.target.value)}
               style={{
-        padding: "12px",
-        borderRadius: "12px",
-        border: "1px solid rgba(212,175,55,0.6)",
-        background: "rgba(0,0,0,0.8)",
-        fontWeight: "600", 
-        fontSize: "1rem",
-        color: "#fff",
-        width: "100%",
-        maxWidth: "320px",
-        marginBottom: "20px",
-        outline: "none",
-        boxShadow: "0 0 10px rgba(212,175,55,0.2)"
-        }}
+                padding: "12px",
+                borderRadius: "12px",
+                border: "1px solid rgba(212,175,55,0.6)",
+                background: "rgba(0,0,0,0.8)",
+                fontWeight: "600", 
+                fontSize: "1rem",
+                color: "#fff",
+                width: "100%",
+                maxWidth: "320px",
+                marginBottom: "20px",
+                outline: "none",
+                boxShadow: "0 0 10px rgba(212,175,55,0.2)"
+              }}
             />
 
             <br />
@@ -322,38 +328,36 @@ function Cliente() {
                 setTela("home");
               }}
               style={{
-    marginTop: "10px",
-    padding: "10px 25px",
-    background: "linear-gradient(145deg, #d4af37, #b8962e)",
-    color: "#000",
-    border: "none",
-    borderRadius: "12px",
-    cursor: "pointer",
-    fontWeight: "600",
-    boxShadow: "0 4px 12px rgba(212,175,55,0.3)",
-    transition: "0.2s"
-  }}
+                marginTop: "10px",
+                padding: "10px 25px",
+                background: "linear-gradient(145deg, #d4af37, #b8962e)",
+                color: "#000",
+                border: "none",
+                borderRadius: "12px",
+                cursor: "pointer",
+                fontWeight: "600",
+                boxShadow: "0 4px 12px rgba(212,175,55,0.3)"
+              }}
             >
               Confirmar
             </button>
 
             <br />
 
-            <button onClick={() => setTela("agenda")}
-               onClick={() => setTela("agenda")}
-  style={{
-    marginTop: "10px",
-    padding: "10px 25px",
-    background: "linear-gradient(145deg, #d4af37, #b8962e)",
-    color: "#000",
-    border: "none",
-    borderRadius: "12px",
-    cursor: "pointer",
-    fontWeight: "600",
-    boxShadow: "0 4px 12px rgba(212,175,55,0.3)",
-    transition: "0.2s"
-  }}
-              >
+            <button
+              onClick={() => setTela("agenda")}
+              style={{
+                marginTop: "10px",
+                padding: "10px 25px",
+                background: "linear-gradient(145deg, #d4af37, #b8962e)",
+                color: "#000",
+                border: "none",
+                borderRadius: "12px",
+                cursor: "pointer",
+                fontWeight: "600",
+                boxShadow: "0 4px 12px rgba(212,175,55,0.3)"
+              }}
+            >
               Voltar
             </button>
           </div>
