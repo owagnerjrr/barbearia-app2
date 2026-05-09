@@ -319,7 +319,7 @@ function Cliente() {
         background: "transparent",
         color: "#d4af37",
         border: "1px solid #d4af37",
-        borderRadius: "10px",
+        
         
       }}
     
