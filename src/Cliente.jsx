@@ -96,7 +96,8 @@ function Cliente() {
                 borderRadius: "20px",
                 cursor: "pointer",
                 fontWeight: "bold",
-                fontSize: "1rem"
+                fontSize: "1rem",
+                boxShadow: "0 6px 20px rgba(212,175,55,0.3)"
               }}
             >
               Agendar
@@ -109,12 +110,16 @@ function Cliente() {
           <div style={{
             textAlign: "center",
             marginTop: "-320px",
-            background: "rgba(0,0,0,0.55)",
-            backdropFilter: "blur(10px)",
+            background: "rgba(0,0,0,0.6)",
+            backdropFilter: "blur(12px)",
             padding: "40px 30px",
             borderRadius: "20px",
-            border: "1px solid rgba(255,255,255,0.15)",
-            boxShadow: "0 0 40px rgba(0,0,0,0.5)"
+            border: "1px solid rgba(212,175,55,0.6)",
+            boxShadow: `
+              0 0 0 1px rgba(212,175,55,0.3),
+              0 0 25px rgba(212,175,55,0.15),
+              0 10px 40px rgba(0,0,0,0.6)
+            `
           }}>
             
             <h2 style={{
@@ -149,15 +154,16 @@ function Cliente() {
               }}
               style={{
                 padding: "14px",
-                borderRadius: "12px",
-                border: "1px solid #d4af37",
-                background: "rgba(0,0,0,0.8)",
+                borderRadius: "14px",
+                border: "1px solid rgba(212,175,55,0.7)",
+                background: "rgba(0,0,0,0.85)",
                 color: "#fff",
                 fontSize: "1rem",
                 outline: "none",
                 width: "100%",
                 maxWidth: "320px",
-                marginBottom: "25px"
+                marginBottom: "25px",
+                boxShadow: "0 0 15px rgba(212,175,55,0.2)"
               }}
             />
 
