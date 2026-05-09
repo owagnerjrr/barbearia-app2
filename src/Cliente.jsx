@@ -1,11 +1,13 @@
 ﻿import { useState } from "react";
 import { db } from "./firebase";
 import { collection, addDoc, getDocs } from "firebase/firestore";
+import DatePicker from "react-datepicker";
+import "react-datepicker/dist/react-datepicker.css";
 
 function Cliente() {
   const [tela, setTela] = useState("home");
   const [horarioSelecionado, setHorarioSelecionado] = useState("");
-  const [dataSelecionada, setDataSelecionada] = useState("");
+  const [dataSelecionada, setDataSelecionada] = useState(null);
   const [nome, setNome] = useState("");
   const [telefone, setTelefone] = useState("");
   const [horariosOcupados, setHorariosOcupados] = useState([]);
@@ -132,40 +134,37 @@ function Cliente() {
               Escolha uma data
             </h2>
 
-            <input
-              type="date"
-              onChange={async (e) => {
-                const data = e.target.value;
-                const hoje = new Date().toISOString().split("T")[0];
+  <DatePicker
+  selected={dataSelecionada}
+  onChange={async (date) => {
+    if (!date) return;
 
-                if (desabilitarDias(data)) {
-                  alert("Não atendemos domingo e segunda ❌");
-                  return;
-                }
+    const ano = date.getFullYear();
+    const mes = String(date.getMonth() + 1).padStart(2, "0");
+    const dia = String(date.getDate()).padStart(2, "0");
+    const dataFormatada = `${ano}-${mes}-${dia}`;
 
-                if (data < hoje) {
-                  alert("Essa data já passou ❌");
-                  return;
-                }
+    const hoje = new Date().toISOString().split("T")[0];
 
-                setDataSelecionada(data);
-                await buscarHorariosOcupados(data);
-                setTela("agenda");
-              }}
-              style={{
-                padding: "14px",
-                borderRadius: "14px",
-                border: "1px solid rgba(212,175,55,0.7)",
-                background: "rgba(156, 147, 90, 0.85)",
-                color: "#fff",
-                fontSize: "1rem",
-                outline: "none",
-                width: "100%",
-                maxWidth: "220px",
-                marginBottom: "25px",
-                boxShadow: "0 0 15px rgba(212,175,55,0.2)"
-              }}
-            />
+    if (desabilitarDias(dataFormatada)) {
+      alert("Não atendemos domingo e segunda ❌");
+      return;
+    }
+
+    if (dataFormatada < hoje) {
+      alert("Essa data já passou ❌");
+      return;
+    }
+
+    setDataSelecionada(date);
+    await buscarHorariosOcupados(dataFormatada);
+    setTela("agenda");
+  }}
+  dateFormat="dd/MM/yyyy"
+  placeholderText="Selecione uma data"
+  minDate={new Date()}
+  className="custom-datepicker"
+/>
 
             <br />
 
