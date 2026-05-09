@@ -146,7 +146,7 @@ function Cliente() {
                 border: "1px solid rgba(212,175,55,0.7)",
                 background: "rgb(0, 0, 0)",
                 color: "#fff",
-                fontSize: "2rem",
+                fontSize: "1rem",
                 outline: "none",
                 width: "100%",
                 maxWidth: "220px",
