@@ -257,7 +257,7 @@ function Cliente() {
           <div style={{ textAlign: "center", marginTop: "-320px" }}>
             <h2>Confirmar horário</h2>
 
-            <p>{formatarDataBr(dataSelecionada)}</p>
+            <p>{dataSelecionada}</p>
             <p>{horarioSelecionado}</p>
 
             <input
