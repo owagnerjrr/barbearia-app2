@@ -158,8 +158,8 @@ function Admin() {
                   <button
                     onClick={() => excluirAgendamento(a.id)}
                     style={{
-                      marginTop: "50px",
-                      padding: "50px",
+                      marginTop: "10px",
+                      padding: "10px",
                       background: "linear-gradient(145deg, #d4af37, #b8962e)",
                       color: "#000",
                       border: "none",
