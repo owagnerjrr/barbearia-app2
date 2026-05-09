@@ -141,7 +141,7 @@ function Cliente() {
               value={dataSelecionada ? dataSelecionada.split("-").reverse().join("/") : ""}
               onClick={() => setMostrarCalendario(true)}
               style={{
-                padding: "25px",
+                padding: "15px",
                 borderRadius: "25px",
                 border: "1px solid rgba(212,175,55,0.7)",
                 background: "rgb(0, 0, 0)",
