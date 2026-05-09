@@ -288,6 +288,8 @@ function Cliente() {
         borderRadius: "12px",
         border: "1px solid rgba(212,175,55,0.6)",
         background: "rgba(0,0,0,0.8)",
+        fontWeight: "600", 
+        fontSize: "1rem",
         color: "#fff",
         width: "100%",
         maxWidth: "320px",
