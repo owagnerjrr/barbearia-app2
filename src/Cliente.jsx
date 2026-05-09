@@ -51,7 +51,7 @@ function Cliente() {
 📅 ${dataBR}
 ⏰ ${horarioSelecionado}
 
-Responda OK para confirmar 👍`;
+Confirmado 👍`;
 
       const telefoneFormatado = "35998598071"; // 👈 SEU NÚMERO AQUI
 
