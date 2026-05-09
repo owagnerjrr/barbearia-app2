@@ -161,7 +161,7 @@ function Cliente() {
                 fontSize: "1rem",
                 outline: "none",
                 width: "100%",
-                maxWidth: "320px",
+                maxWidth: "220px",
                 marginBottom: "25px",
                 boxShadow: "0 0 15px rgba(212,175,55,0.2)"
               }}
