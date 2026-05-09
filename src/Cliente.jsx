@@ -17,38 +17,31 @@ function Cliente() {
   ];
 
   const buscarHorariosOcupados = async (data) => {
-    console.log("🔥 BUSCANDO HORÁRIOS PRA:", data);
-
     const querySnapshot = await getDocs(collection(db, "agendamentos"));
     const ocupados = [];
 
     querySnapshot.forEach((docItem) => {
       const agendamento = docItem.data();
-
       if (agendamento.data === data) {
         ocupados.push(agendamento.horario);
       }
     });
 
-    console.log("✅ OCUPADOS:", ocupados);
     setHorariosOcupados(ocupados);
   };
 
   const confirmarAgendamento = async () => {
-    console.log("🔥 clicou no botão");
-
     try {
       await addDoc(collection(db, "agendamentos"), {
-        nome: nome,
-        telefone: telefone,
+        nome,
+        telefone,
         data: dataSelecionada,
         horario: horarioSelecionado
       });
 
-      console.log("✅ SALVOU NO FIREBASE");
       alert("Agendado com sucesso!");
     } catch (error) {
-      console.error("❌ ERRO AO SALVAR:", error);
+      console.error(error);
     }
   };
 
@@ -61,44 +54,49 @@ function Cliente() {
   };
 
   return (
-    <div
-      style={{
+    <div style={{
+      width: "100%",
+      minHeight: "100vh",
+      backgroundImage: "url('/fundo.png?v=1')",
+      backgroundSize: "cover",
+      backgroundPosition: "center",
+      display: "flex",
+      justifyContent: "center",
+      alignItems: "center",
+      color: "white"
+    }}>
+
+      <div style={{
         width: "100%",
-        minHeight: "100vh",
-        backgroundImage: "url('/fundo.png?v=1')",
-        backgroundSize: "cover",
-        backgroundPosition: "center",
-        backgroundRepeat: "no-repeat",
+        maxWidth: "900px",
+        padding: "40px 20px 60px",
         display: "flex",
-        justifyContent: "center",
-        alignItems: "center",
-        color: "white"
-      }}
-    >
-      <div
-        style={{
-          width: "100%",
-          maxWidth: "900px",
-          padding: "40px 20px 60px",
-          display: "flex",
-          flexDirection: "column",
-          alignItems: "center"
-        }}
-      >
+        flexDirection: "column",
+        alignItems: "center"
+      }}>
+
+        {/* HOME */}
         {tela === "home" && (
           <div style={{ textAlign: "center", marginTop: "-100px" }}>
-            <h1>Agende já seu horário</h1>
+            <h1 style={{
+              fontSize: "2.5rem",
+              textShadow: "2px 2px 12px rgba(0,0,0,0.7)"
+            }}>
+              Agende já seu horário
+            </h1>
 
             <button
               onClick={() => setTela("data")}
               style={{
                 marginTop: "400px",
                 padding: "14px 32px",
-                background: "red",
-                color: "#fff",
+                background: "linear-gradient(145deg, #d4af37, #b8962e)",
+                color: "#000",
                 border: "none",
-                borderRadius: "15px",
-                cursor: "pointer"
+                borderRadius: "20px",
+                cursor: "pointer",
+                fontWeight: "bold",
+                fontSize: "1rem"
               }}
             >
               Agendar
@@ -106,9 +104,28 @@ function Cliente() {
           </div>
         )}
 
+        {/* DATA */}
         {tela === "data" && (
-          <div style={{ textAlign: "center", marginTop: "-320px" }}>
-            <h2>Escolha uma data</h2>
+          <div style={{
+            textAlign: "center",
+            marginTop: "-320px",
+            background: "rgba(0,0,0,0.55)",
+            backdropFilter: "blur(10px)",
+            padding: "40px 30px",
+            borderRadius: "20px",
+            border: "1px solid rgba(255,255,255,0.15)",
+            boxShadow: "0 0 40px rgba(0,0,0,0.5)"
+          }}>
+            
+            <h2 style={{
+              color: "#fff",
+              fontSize: "2rem",
+              fontWeight: "700",
+              textShadow: "2px 2px 12px rgba(0,0,0,0.7)",
+              marginBottom: "25px"
+            }}>
+              Escolha uma data
+            </h2>
 
             <input
               type="date"
@@ -130,19 +147,45 @@ function Cliente() {
                 await buscarHorariosOcupados(data);
                 setTela("agenda");
               }}
+              style={{
+                padding: "14px",
+                borderRadius: "12px",
+                border: "1px solid #d4af37",
+                background: "rgba(0,0,0,0.8)",
+                color: "#fff",
+                fontSize: "1rem",
+                outline: "none",
+                width: "100%",
+                maxWidth: "320px",
+                marginBottom: "25px"
+              }}
             />
 
             <br />
 
-            <button onClick={() => setTela("home")}>
-              Voltar
+            <button
+              onClick={() => setTela("home")}
+              style={{
+                marginTop: "10px",
+                padding: "10px 20px",
+                background: "transparent",
+                color: "#d4af37",
+                border: "1px solid #d4af37",
+                borderRadius: "10px",
+                cursor: "pointer"
+              }}
+            >
+              VOLTAR
             </button>
           </div>
         )}
 
+        {/* AGENDA */}
         {tela === "agenda" && (
           <div style={{ textAlign: "center", marginTop: "-320px" }}>
-            <h2>Escolha um horário</h2>
+            <h2 style={{ textShadow: "2px 2px 10px rgba(0,0,0,0.6)" }}>
+              Escolha um horário
+            </h2>
 
             {horarios.map((h) => {
               const agora = new Date();
@@ -161,9 +204,16 @@ function Cliente() {
                   disabled={ocupado}
                   onClick={() => {
                     if (ocupado) return;
-
                     setHorarioSelecionado(h);
                     setTela("confirmar");
+                  }}
+                  style={{
+                    margin: "5px",
+                    padding: "10px",
+                    borderRadius: "10px",
+                    border: "none",
+                    background: ocupado ? "#555" : "#fff",
+                    cursor: ocupado ? "not-allowed" : "pointer"
                   }}
                 >
                   {h} {ocupado ? "❌" : ""}
@@ -176,6 +226,7 @@ function Cliente() {
           </div>
         )}
 
+        {/* CONFIRMAR */}
         {tela === "confirmar" && (
           <div style={{ textAlign: "center", marginTop: "-320px" }}>
             <h2>Confirmar horário</h2>
