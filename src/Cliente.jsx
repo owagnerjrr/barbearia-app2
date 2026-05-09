@@ -235,7 +235,7 @@ function Cliente() {
                 marginTop: "50px",
                 padding: "10px 20px",
                 background: "linear-gradient(145deg, #d4af37, #b8962e)",
-                color: "#d4af37",
+                color: "#050400",
                 border: "1px solid #d4af37",
                 borderRadius: "10px",
                 cursor: "pointer"
