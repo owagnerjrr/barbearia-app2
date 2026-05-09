@@ -136,7 +136,7 @@ function Admin() {
                       alignItems: "center"
                     }}
                   >
-                    <span style={{ fontSize: "20px", opacity: 0.7 }}>
+                    <span style={{ fontSize: "15px", opacity: 0.7 }}>
                       ⏰ Horário
                     </span>
 
@@ -144,7 +144,7 @@ function Admin() {
                       style={{
                         background: "linear-gradient(145deg, #d4af37, #b8962e)",
                         color: "#000",
-                        padding: "5px 12px",
+                        padding: "10px 24px",
                         borderRadius: "10px",
                         fontWeight: "bold",
                         fontSize: "14px",
