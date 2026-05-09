@@ -142,7 +142,7 @@ function Cliente() {
               onClick={() => setMostrarCalendario(true)}
               style={{
                 padding: "14px",
-                borderRadius: "14px",
+                borderRadius: "25px",
                 border: "1px solid rgba(212,175,55,0.7)",
                 background: "rgb(0, 0, 0)",
                 color: "#fff",
