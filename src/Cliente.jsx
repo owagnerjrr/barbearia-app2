@@ -23,6 +23,13 @@ function Cliente() {
     "13:30","14:00","15:00","16:00","17:00"
   ];
 
+  const abrirWhatsApp = () => {
+    const numero = "5535998598071";
+    const mensagem = "Olá! Não encontrei um horário disponível. Poderia ser atendido em outro horário? Exemplo__:__";
+    const url = `https://wa.me/${numero}?text=${encodeURIComponent(mensagem)}`;
+    window.open(url, "_blank");
+  };
+
   const buscarHorariosOcupados = async (data) => {
     const querySnapshot = await getDocs(collection(db, "agendamentos"));
     const ocupados = [];
@@ -110,7 +117,8 @@ Confirmado 👍`;
       display: "flex",
       justifyContent: "center",
       alignItems: "center",
-      color: "white"
+      color: "white",
+      position: "relative"
     }}>
 
       <div style={{
@@ -123,7 +131,7 @@ Confirmado 👍`;
       }}>
 
         {tela === "home" && (
-          <div style={{ textAlign: "center", marginTop: "-100px" }}>
+          <div style={{ textAlign: "center", marginTop: "-100px"}}>
             <h1 style={{
               fontSize: "2.5rem",
               textShadow: "2px 2px 12px rgba(0,0,0,0.7)"
@@ -152,8 +160,8 @@ Confirmado 👍`;
             <button
               onClick={() => setTela("area")}
               style={{
-             marginTop: "349px",
-                padding: "14px 32px",
+                marginTop: "349px",
+                padding: "14px 17px",
                 background: "linear-gradient(145deg, #d4af37, #b8962e)",
                 color: "#000",
                 border: "none",
@@ -169,7 +177,6 @@ Confirmado 👍`;
           </div>
         )}
 
-
         {tela === "area" && (
           <div style={{ textAlign: "center", marginTop: "-200px" }}>
             <h2>Meus Agendamentos</h2>
@@ -180,7 +187,7 @@ Confirmado 👍`;
               onChange={(e) => setBuscaTelefone(e.target.value)}
               style={{
                 padding: "12px",
-                borderRadius: "12px",
+                borderRadius: "15px",
                 border: "1px solid rgba(212,175,55,0.6)",
                 background: "rgba(0,0,0,0.8)",
                 color: "#fff",
@@ -507,6 +514,51 @@ Confirmado 👍`;
           </div>
         )}
       </div>
+
+      {tela === "agenda" && (
+        <div style={{
+          position: "fixed",
+          bottom: "20px",
+          right: "20px",
+          display: "flex",
+          alignItems: "center",
+          gap: "10px",
+          zIndex: 999
+        }}>
+          <span style={{
+            background: "rgba(0,0,0,0.8)",
+            padding: "10px 15px",
+            borderRadius: "20px",
+            fontSize: "0.85rem",
+            maxWidth: "220px",
+            boxShadow: "0 4px 15px rgba(0,0,0,0.4)"
+          }}>
+            Não encontrou um horário que lhe agrade? Entre em contato conosco
+          </span>
+
+          <button
+            onClick={abrirWhatsApp}
+            style={{
+              width: "60px",
+              height: "60px",
+              borderRadius: "50%",
+              background: "#25D366",
+              border: "none",
+              display: "flex",
+              justifyContent: "center",
+              alignItems: "center",
+              cursor: "pointer",
+              boxShadow: "0 4px 15px rgba(0,0,0,0.4)"
+            }}
+          >
+            <img
+              src="https://cdn-icons-png.flaticon.com/512/733/733585.png"
+              alt="WhatsApp"
+              style={{ width: "30px" }}
+            />
+          </button>
+        </div>
+      )}
     </div>
   );
 }
