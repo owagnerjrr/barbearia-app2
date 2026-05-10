@@ -169,7 +169,6 @@ Confirmado 👍`;
           </div>
         )}
 
-        // teste deploy
 
         {tela === "area" && (
           <div style={{ textAlign: "center", marginTop: "-200px" }}>
