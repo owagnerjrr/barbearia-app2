@@ -75,6 +75,22 @@ Confirmado 👍`;
     }
   };
 
+  const adicionarAoCalendario = () => {
+    const [ano, mes, dia] = dataSelecionada.split("-");
+    const [hora, minuto] = horarioSelecionado.split(":");
+
+    const inicio = new Date(ano, mes - 1, dia, hora, minuto);
+    const fim = new Date(inicio.getTime() + 60 * 60 * 1000);
+
+    const formatar = (data) => {
+      return data.toISOString().replace(/-|:|\.\d+/g, "");
+    };
+
+    const url = `https://www.google.com/calendar/render?action=TEMPLATE&text=Agendamento%20Barbearia&dates=${formatar(inicio)}/${formatar(fim)}&details=Seu%20horário%20agendado&location=Seu%20endereço`;
+
+    window.open(url, "_blank");
+  };
+
   const buscarMeusAgendamentos = async () => {
     const querySnapshot = await getDocs(collection(db, "agendamentos"));
     const lista = [];
@@ -476,6 +492,7 @@ Confirmado 👍`;
                 }
 
                 await confirmarAgendamento();
+                adicionarAoCalendario();
                 setTela("home");
               }}
               style={{
