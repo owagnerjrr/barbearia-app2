@@ -61,7 +61,7 @@ function Cliente() {
 📅 ${dataBR}
 ⏰ ${horarioSelecionado}
 
-Confirmado 👍`;
+Confirmado no app 👍`;
 
       const telefoneFormatado = "35998598071";
 
