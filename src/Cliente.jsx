@@ -24,7 +24,7 @@ function Cliente() {
   ];
 
   const abrirWhatsApp = () => {
-    const numero = "5535998598071";
+    const numero = "5535988316108";
     const mensagem = "Olá! Não encontrei um horário disponível. Poderia ser atendido em outro horário? Exemplo__:__";
     const url = `https://wa.me/${numero}?text=${encodeURIComponent(mensagem)}`;
     window.open(url, "_blank");
@@ -63,7 +63,7 @@ function Cliente() {
 
 Confirmado no app 👍`;
 
-      const telefoneFormatado = "35998598071";
+      const telefoneFormatado = "35988316108";
 
       const url = `https://wa.me/55${telefoneFormatado}?text=${encodeURIComponent(mensagem)}`;
 
